@@ -1,0 +1,76 @@
+# 源域模型训练配置
+# 对应问题2：多分类模型训练
+
+training:
+  # 交叉验证参数
+  cv:
+    n_splits: 5
+    shuffle: true
+    random_state: 42
+
+  # 数据预处理
+  preprocessing:
+    normalize: true
+    fillna_strategy: "mean"
+
+  # 训练超参数
+  epochs: 50
+  batch_size: 512
+  learning_rate: 0.001
+  weight_decay: 1.0e-5
+
+  # 设备
+  device: "auto"  # auto / cuda / cpu
+
+models:
+  cnn:
+    enabled: true
+    num_classes: 23
+
+  cnn_lstm:
+    enabled: true
+    num_classes: 23
+    lstm_hidden_size: 128
+    num_layers: 2
+
+  cnn_bilstm:
+    enabled: true
+    num_classes: 23
+
+  cnn_transformer:
+    enabled: true
+    num_classes: 23
+    d_model: 256
+    nhead: 8
+    num_layers: 3
+
+  resnet_transformer:
+    enabled: true
+    num_classes: 23
+    d_model: 128
+    nhead: 8
+    num_layers: 2
+
+  xgboost:
+    enabled: true
+    num_classes: 23
+    n_estimators: 200
+    learning_rate: 0.1
+    max_depth: 8
+
+  lightgbm:
+    enabled: true
+    num_classes: 23
+    n_estimators: 200
+    learning_rate: 0.05
+    max_depth: 8
+
+output:
+  figures_dir: "outputs/figures/source_model_evaluation"
+  models_dir: "outputs/models/source_models"
+  results_dir: "outputs/evaluation/source_classification"
+  tables_dir: "outputs/tables/cross_validation"
+
+data:
+  normalized: "data/processed/source_normalized.csv"
+  selected_features: "data/processed/source_selected_features.csv"

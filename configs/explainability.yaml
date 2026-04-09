@@ -1,0 +1,26 @@
+# 可解释性分析配置
+# 对应问题4：模型可视化与可解释性
+
+explainability:
+  # 权重可视化
+  weight_visualization:
+    enabled: true
+    model_path: "outputs/models/source_models"
+    output_dir: "outputs/figures/explainability/weight_3d"
+    layers_to_visualize: "all"  # all / 指定层名列表
+
+  # MMD损失可视化
+  mmd_loss_visualization:
+    enabled: true
+    output_dir: "outputs/figures/explainability/mmd_loss"
+
+  # 特征重要性分析
+  feature_importance:
+    enabled: true
+    output_dir: "outputs/tables/feature_statistics"
+    top_k: 30
+
+  # 权重热力图
+  weight_heatmap:
+    enabled: true
+    output_dir: "outputs/figures/explainability/weight_heatmap"

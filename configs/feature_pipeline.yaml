@@ -1,0 +1,42 @@
+# 特征工程流水线配置
+# 对应问题1：数据探索与特征工程
+
+data:
+  raw:
+    source_domain: "data/raw/source_domain"
+    target_domain: "data/raw/target_domain"
+  interim:
+    source_windows: "data/interim/source_windows"
+    target_windows: "data/interim/target_windows"
+    source_features: "data/interim/source_features"
+    target_features: "data/interim/target_features"
+  processed:
+    output_dir: "data/processed"
+  metadata:
+    cycle_statistics: "data/metadata/cycle_statistics.xlsx"
+    feature_mapping: "data/metadata/feature_mapping.csv"
+
+cycle_calculation:
+  # CWRU数据集采样参数
+  sampling_frequencies: [12000, 48000]
+  sensor_positions: ["DE", "FE"]
+
+sliding_window:
+  window_size: 1024
+  overlap_ratio: 0.5
+
+feature_extraction:
+  # 时域特征
+  time_domain: true
+  # 频域特征
+  frequency_domain: true
+  # 时频域特征
+  time_frequency_domain: false
+
+classification_labels:
+  # 23分类：所有故障类型
+  num_classes_23: 23
+  # 7分类：按故障直径合并
+  num_classes_7: 7
+  # 4分类：按正常/内圈/外圈/滚动体
+  num_classes_4: 4

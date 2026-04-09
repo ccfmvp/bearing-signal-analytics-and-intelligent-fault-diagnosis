@@ -1,0 +1,43 @@
+# 域适应训练配置
+# 对应问题3：跨域迁移学习
+
+domain_adaptation:
+  # 数据配置
+  data:
+    source_input: "data/processed/transfer_source_input.csv"
+    target_input: "data/processed/transfer_target_input.csv"
+
+  # 迁移方法
+  methods:
+    cnn_bilstm_mmd:
+      enabled: true
+      mmd_weight: 0.1
+      kernel_mul: 2.0
+      kernel_num: 5
+
+    cnn_bilstm_dann:
+      enabled: true
+      alpha_schedule: "linear"  # linear / step / constant
+
+    resnet_transformer_mmd:
+      enabled: true
+      mmd_weight: 0.1
+
+    xgboost_mmd:
+      enabled: true
+      mmd_weight: 0.01
+
+  # 训练参数
+  training:
+    cv:
+      n_splits: 5
+      random_state: 42
+    epochs: 50
+    batch_size: 512
+    learning_rate: 0.001
+
+output:
+  figures_dir: "outputs/figures/domain_adaptation"
+  models_dir: "outputs/models/transfer_models"
+  results_dir: "outputs/evaluation/target_predictions"
+  comparison_dir: "outputs/evaluation/model_comparison"
